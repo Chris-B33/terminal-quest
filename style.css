@@ -1,0 +1,38 @@
+body {
+    background-color: #000;
+    color: #33ff33;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 20px;
+    overflow: hidden;
+}
+
+#terminal {
+    width: 90%;
+    height: 80vh;
+    padding: 0.5rem;
+    margin: 5rem;
+    border: 0.3rem solid white;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+.input-line {
+    display: inline;
+}
+
+.blinking-cursor {
+    display: inline-block;
+    width: 5px;
+    height: 1em;
+    background-color: #33ff33;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+    vertical-align: bottom;
+}
+
+@keyframes blink {
+    0%   { background-color: #33ff33; }
+    50%  { background-color: transparent; }
+    100% { background-color: #33ff33; }
+}
