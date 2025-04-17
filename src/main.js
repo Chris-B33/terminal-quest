@@ -56,17 +56,18 @@ async function toggleComputerPower() {
         terminal.classList.add('shutdown-anim');
         terminal.addEventListener('animationend', () => {
             terminal.remove();
+            executing = false;
         });
     } else {
         createTerminal();
         terminal.classList.add('turn-on-anim');
         terminal.addEventListener('animationend', () => {
             terminal.classList.remove('turn-on-anim');
+            executing = false;
         });
     }
 
     isComputerOn = !isComputerOn;
-    executing = false;
 }
 
 function createTerminal() {
