@@ -6,6 +6,10 @@ Terminal Quest is an interactive web application that simulates a retro computer
 ## Preview
 <img src= "assets/imgs/preview.png">
 
+## Installation
+- Clone this repository.
+- Open "index.html".
+
 ## Features
 - 3D Model Viewer: Displays a 3D model of an old PC using the <model-viewer> component.
 - Interactive Environment: Users can interact with the model and toggle the computer power using a button.
