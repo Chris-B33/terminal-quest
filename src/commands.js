@@ -21,15 +21,34 @@ const commands = {
         desc: "Print content of given file in the current directory.",
         action: (filename) => {
             if (filename == "") {
-                return "Usage: open <file>"
+                return "Usage: cat <file>"
             }
 
             const dir = getCurrentDir();
             const file = dir[filename];
 
-            if (typeof file === 'string') {
-                return file;
-            } else if (typeof file === 'object') {
+            if (file["type"] == "file") {
+                return file["content"];
+            } else if (file["type"] == "directory") {
+                return `${filename} is a directory.`;
+            } else {
+                return 'File not found.';
+            }
+        }
+    },
+    run: {
+        desc: "Run given file in the current directory.",
+        action: (filename) => {
+            if (filename == "") {
+                return "Usage: run <file>"
+            }
+
+            const dir = getCurrentDir();
+            const file = dir[filename];
+
+            if (file["type"] == "file") {
+                file["action"]();
+            } else if (file["type"] == "directory") {
                 return `${filename} is a directory.`;
             } else {
                 return 'File not found.';
@@ -64,7 +83,7 @@ const commands = {
         desc: "List all files in the current directory.",
         action: () => {
             const dir = getCurrentDir();
-            return `/${currentPath.join("/")} \n${Object.keys(dir).map(name => '├─ ' + name).join('\n')}`;
+            return `/${currentPath.join("/")} \n${Object.keys(dir).slice(1).map(name => '├─ ' + name).join('\n')}`;
         }
     },
     pwd: {
@@ -79,6 +98,13 @@ const commands = {
             document.getElementById('terminal').innerHTML = ''
         },
     },
+    shutdown: {
+        desc: 'Shuts down the terminal.',
+        action: () => {
+            executing = false;
+            toggleComputerPower();
+        }
+    },
     help: {
         desc: 'Lists available commands.',
         action: () => {
@@ -88,3 +114,4 @@ const commands = {
         }
     }
 };
+
