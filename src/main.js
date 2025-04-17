@@ -1,4 +1,4 @@
-const terminal = document.getElementById('terminal');
+let terminal = "";
 
 let history = [];
 let historyIndex = -1;
@@ -6,6 +6,8 @@ let historyIndex = -1;
 let directory = "";
 let inputBuffer = '';
 let executing = false;
+
+let isComputerOn = false;
 
 function delay(delayInms) {
     return new Promise(resolve => setTimeout(resolve, delayInms));
@@ -41,6 +43,41 @@ function updateInputLine() {
     if (inputLine) {
         inputLine.textContent = inputBuffer;
     }
+}
+
+async function toggleComputerPower() {
+    if (executing) {
+        return;
+    }
+
+    executing = true;
+
+    if (isComputerOn) {
+        terminal.classList.add('shutdown-anim');
+        terminal.addEventListener('animationend', () => {
+            terminal.remove();
+        });
+    } else {
+        createTerminal();
+        terminal.classList.add('turn-on-anim');
+        terminal.addEventListener('animationend', () => {
+            terminal.classList.remove('turn-on-anim');
+        });
+    }
+
+    isComputerOn = !isComputerOn;
+    executing = false;
+}
+
+function createTerminal() {
+    terminal = document.createElement("div");
+    terminal.id = "terminal"
+    let containerDiv = document.getElementById('container');
+    containerDiv.appendChild(terminal);
+
+    print('SkyNet v0.99');
+    print('Type "help" for a list of available commands.');
+    printPrompt();
 }
 
 document.addEventListener('keydown', async (e) => {
@@ -89,5 +126,4 @@ document.addEventListener('keydown', async (e) => {
     updateInputLine();
 });
 
-print('SkyNet v0.99');
-printPrompt();
+toggleComputerPower()
