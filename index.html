@@ -5,11 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Terminal Quest</title>
         <link href="style.css" rel="stylesheet">
+        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
     </head>
     <body>
-        <div id="terminal-header"></div>
-        <div id="terminal"></div>
-
+        <div id="container">
+            <div id="terminal"></div>
+            <model-viewer src="assets/models/old_pc.glb" shadow-intensity="1" camera-orbit="0deg 0deg 1m"></model-viewer>
+        </div>
         <script src="src/filesystem.js"></script>
         <script src="src/commands.js"></script>
         <script src="src/main.js"></script>
