@@ -51,11 +51,13 @@ async function toggleComputerPower() {
     }
 
     executing = true;
+    model = document.getElementById('model');
 
     if (isComputerOn) {
         terminal.classList.add('shutdown-anim');
         terminal.addEventListener('animationend', () => {
             terminal.remove();
+            model.src = "assets/models/old_pc_off.glb"
             executing = false;
         });
     } else {
@@ -63,6 +65,7 @@ async function toggleComputerPower() {
         terminal.classList.add('turn-on-anim');
         terminal.addEventListener('animationend', () => {
             terminal.classList.remove('turn-on-anim');
+            model.src = "assets/models/old_pc_on.glb"
             executing = false;
         });
     }
