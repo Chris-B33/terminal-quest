@@ -319,7 +319,7 @@ async function progressStory(num) {
             glitch.pause();
             glitch.currentTime = 0;
             toggleComputerPower();
-        }, 5000); 
+        }, 3000); 
     }
 }
 
