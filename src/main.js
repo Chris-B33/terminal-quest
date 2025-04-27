@@ -13,7 +13,7 @@ function delay(delayInms) {
     return new Promise(resolve => setTimeout(resolve, delayInms));
 }
 
-async function print(text = '') {
+async function print(text = '', delms = 5) {
     const line = document.createElement('div');
     terminal.insertBefore(line, document.getElementById('prompt-line'));
 
@@ -22,7 +22,7 @@ async function print(text = '') {
     for (let i = 0; i < text.length; i++) {
         line.textContent += text[i];
         terminal.scrollTop = terminal.scrollHeight;
-        await delay(5);
+        await delay(delms);
     }
 }
 
@@ -85,7 +85,7 @@ function createTerminal() {
 }
 
 document.addEventListener('keydown', async (e) => {
-    if (executing) {
+    if (executing || !isComputerOn) {
         return;
     }
 
