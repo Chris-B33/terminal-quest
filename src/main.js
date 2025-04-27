@@ -9,6 +9,9 @@ let executing = false;
 
 let isComputerOn = false;
 
+var booting = new Audio('assets/audio/booting.mp3');
+var beep = new Audio('assets/audio/beep.mp3');
+
 function delay(delayInms) {
     return new Promise(resolve => setTimeout(resolve, delayInms));
 }
@@ -54,6 +57,8 @@ async function toggleComputerPower() {
     model = document.getElementById('model');
 
     if (isComputerOn) {
+        booting.pause();
+        booting.currentTime = 0;
         terminal.classList.add('shutdown-anim');
         terminal.addEventListener('animationend', () => {
             terminal.remove();
@@ -61,6 +66,7 @@ async function toggleComputerPower() {
             executing = false;
         });
     } else {
+        booting.play();
         createTerminal();
         terminal.classList.add('turn-on-anim');
         terminal.addEventListener('animationend', () => {
@@ -94,6 +100,7 @@ document.addEventListener('keydown', async (e) => {
     } else if (e.key === 'Enter') {
         history.push(inputBuffer);
         historyIndex = history.length;
+        beep.play();
 
         const commandText = inputBuffer;
         const commandLine = document.createElement('div');
@@ -105,7 +112,7 @@ document.addEventListener('keydown', async (e) => {
 
         executing = true;
         const response = handleCommand(commandText);
-        await print(response);
+        await print(response, delms=3);
         executing = false;
 
         printPrompt();
@@ -129,5 +136,3 @@ document.addEventListener('keydown', async (e) => {
     }
     updateInputLine();
 });
-
-toggleComputerPower()

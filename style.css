@@ -84,7 +84,7 @@ model-viewer {
         opacity: 1;
     }
 }
-.turn-on-anim { animation: turn_on 1s ease-out forwards}
+.turn-on-anim { animation: turn_on 3s ease-out forwards}
 
 @keyframes shutdown {
     0% {
@@ -100,5 +100,75 @@ model-viewer {
         opacity: 0;
     }
 }
-.shutdown-anim { animation: shutdown 1s ease-out forwards}
+.shutdown-anim { animation: shutdown 0.5s ease-out forwards}
+
+@keyframes glitching {
+    0% {
+        transform: translate(0, 0);
+        clip-path: inset(0 0 0 0);
+        visibility: visible;
+        color: #ff0000;
+    }
+    10% {
+        transform: translate(-20px, -10px);
+        clip-path: inset(10% 0 30% 0);
+        visibility: visible;
+        color: #00ff00;
+    }
+    20% {
+        transform: translate(20px, -20px);
+        clip-path: inset(15% 0 25% 0);
+        visibility: visible;
+        color: #ff0000;
+    }
+    30% {
+        transform: translate(-20px, 15px);
+        clip-path: inset(5% 0 20% 0);
+        visibility: hidden;
+        color: #ff0000;
+    }
+    40% {
+        transform: translate(20px, -10px);
+        clip-path: inset(0 0 0 0);
+        visibility: visible;
+        color: #00ff00;
+    }
+    50% {
+        transform: translate(0px, 0px);
+        clip-path: inset(5% 0 15% 0);
+        visibility: hidden;
+        color: #ff0000;
+    }
+    60% {
+        transform: translate(20px, 20px);
+        clip-path: inset(20% 0 10% 0);
+        visibility: visible;
+        color: #ff0000;
+    }
+    70% {
+        transform: translate(-20px, 20px);
+        clip-path: inset(0 0 10% 0);
+        visibility: visible;
+        color: #00ff00;
+    }
+    80% {
+        transform: translate(10px, -10px);
+        clip-path: inset(0 0 5% 0);
+        visibility: visible;
+        color: #ff0000;
+    }
+    90% {
+        transform: translate(-10px, 5px);
+        clip-path: inset(0 0 20% 0);
+        visibility: visible;
+        color: #00ff00;
+    }
+    100% {
+        transform: translate(0, 0);
+        clip-path: inset(0 0 0 0);
+        visibility: visible;
+        color: #ff0000;
+    }
+}
+.glitching-anim div { animation: glitching 0.3s infinite ease-out; }
     
