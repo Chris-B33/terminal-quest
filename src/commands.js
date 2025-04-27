@@ -58,25 +58,31 @@ const commands = {
     cd: {
         desc: "Change directory to desired location.",
         action: (directory) => {
+            directory = String(directory || "").trim();
             if (directory == "") return 'Usage: cd <directory>';
 
-            const dir = getCurrentDir();
+            let dir = getCurrentDir();
+            const parts = directory.split('/').filter(p => p.length > 0);
 
-            if (directory == '..') {
-                if (currentPath.length > 0) {
-                    currentPath.pop();
-                    return `/${currentPath.join("/")}`;
+            for (let part of parts) {
+                if (part === '..') {
+                    if (currentPath.length > 0) {
+                        currentPath.pop();
+                        dir = getCurrentDir();
+                    } else {
+                        return 'Already at root.';
+                    }
                 } else {
-                    return 'Already at root.';
+                    if (dir[part] && dir[part].type === "directory") {
+                        currentPath.push(part);
+                        dir = getCurrentDir();
+                    } else {
+                        return `Directory not found: ${part}`;
+                    }
                 }
             }
 
-            if (dir[directory] && typeof dir[directory] === 'object') {
-                currentPath.push(directory);
-                return `Entered ${directory}`;
-            } else {
-                return 'Directory not found.';
-            }
+            return `/${currentPath.join("/")}`;
         }
     },
     ls: {
@@ -114,4 +120,3 @@ const commands = {
         }
     }
 };
-
