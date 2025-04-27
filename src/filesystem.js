@@ -4,145 +4,38 @@ var fileSystem = {
             type: "directory",
             PRIVATE: {
                 type: "directory",
-                'photos': {
-                    type: "directory",
-                    'vacation.jpg': {
-                        type: "file",
-                        content: 'Photo data...',
-                        action: () => {}
-                    },
-                    'family.jpg': {
-                        type: "file",
-                        content: 'Photo data...',
-                        action: () => {}
-                    },
-                },
-                'diary.txt': {
-                    type: "file",
-                    content: 'Dear diary, today was weird.',
-                    action: () => {}
-                },
-                'passwords.txt': {
-                    type: "file",
-                    content: 'MySecretPassword123',
-                    action: () => {}
-                },
             },
+
             'projects': {
                 type: "directory",
-                'project3': {
-                    type: "directory",
-                    'task1.txt': {
-                        type: "file",
-                        content: 'Task 1 details...',
-                        action: () => {}
-                    },
-                    'task2.txt': {
-                        type: "file",
-                        content: 'Task 2 details...',
-                        action: () => {}
-                    },
-                },
-                'project1.txt': {
-                    type: "file",
-                    content: 'Project 1 details...',
-                    action: () => {}
-                },
-                'project2.txt': {
-                    type: "file",
-                    content: 'Project 2 details...',
-                    action: () => {}
-                },
-            },
-            'notes.txt': {
-                type: "file",
-                content: 'To-do: make this work lol',
-                action: () => {}
-            },
+            }
         },
     
         lab: {
             type: "directory",
-            'data': {
-                type: "directory",
-                'data1.csv': {
-                    type: "file",
-                    content: 'CSV data...',
-                    action: () => {}
-                },
-                'data2.csv': {
-                    type: "file",
-                    content: 'CSV data...',
-                    action: () => {}
-                },
-            },
-            'experiment.log': {
-                type: "file",
-                content: 'Testing yippee',
-                action: () => {}
-            },
-            'results.txt': {
-                type: "file",
-                content: 'Experiment results...',
-                action: () => {}
-            },
         },
     
         dev: {
             type: "directory",
-            'src': {
-                type: "directory",
-                'index.js': {
-                    type: "file",
-                    content: 'console.log("Index file");',
-                    action: () => {}
-                },
-                'utils.js': {
-                    type: "file",
-                    content: 'console.log("Utils file");',
-                    action: () => {}
-                },
-            },
-            'code.js': {
-                type: "file",
-                content: 'console.log("Hello, world!");',
-                action: () => {}
-            },
-            'README.md': {
-                type: "file",
-                content: '# Project Documentation\n\nThis is a sample project.',
-                action: () => {}
-            },
         },
     
         tmp: {
             type: "directory",
-            'cache': {
-                type: "directory",
-                'cache1.tmp': {
-                    type: "file",
-                    content: 'Cache data...',
-                    action: () => {}
-                },
-                'cache2.tmp': {
-                    type: "file",
-                    content: 'Cache data...',
-                    action: () => {}
-                },
-            },
-            'tempfile.txt': {
-                type: "file",
-                content: 'Temporary data...',
-                action: () => {}
-            },
         },
 
-        "basic.exe" : {
+        "ai.exe" : {
             type: "file",
-            content: "Do you think you could actually read a .exe file.",
+            content: "Description: $k¥n3† A! pr0j3ct - M!l!†@r¥ A! ¡n†3ll!g€nç3\nFile Created: 22/09/68",
             action: () => {
-                executing = false;
-                toggleComputerPower();
+                progressStory(num=1);
+            }
+        },
+
+        "memory.exe" : {
+            type: "file",
+            content: "Description: L0@d3d D@t@ C0r†3x | @cc3ss: [§yst3m bR34k]\nFile Created: 02/07/70",
+            action: () => {
+                progressStory(num=2);
             }
         },
 
@@ -151,4 +44,4 @@ var fileSystem = {
             content: 'Bruh',
             action: () => {}
         }
-    };    
+};

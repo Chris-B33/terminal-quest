@@ -105,7 +105,7 @@ document.addEventListener('keydown', async (e) => {
 
         executing = true;
         const response = handleCommand(commandText);
-        await print(response);
+        await print(response, delms=3);
         executing = false;
 
         printPrompt();
@@ -129,5 +129,3 @@ document.addEventListener('keydown', async (e) => {
     }
     updateInputLine();
 });
-
-toggleComputerPower()

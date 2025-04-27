@@ -11,7 +11,7 @@ Terminal Quest is an interactive web application that simulates a retro computer
 - Open "index.html".
 
 ## Features
-- 3D Model Viewer: Displays a 3D model of an old PC using the <model-viewer> component.
+- 3D Model Viewer: Displays a 3D model of an old PC using the model-viewer component.
 - Interactive Environment: Users can interact with the model and toggle the computer power using a button.
 - Modular JavaScript: The application is built with modular JavaScript, including files for filesystem operations, command handling, and main functionalities.
 
@@ -22,5 +22,4 @@ Terminal Quest is an interactive web application that simulates a retro computer
 - 3D Model Viewer: Utilizes the @google/model-viewer library for 3D model rendering.
 
 ## Known Issues
-Does not work on mobile. <br>
-GitHub preview seems to not load the model or the associated background image.
+Does not work on mobile.
