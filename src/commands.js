@@ -1,4 +1,5 @@
 let currentPath = [];
+let error_message = 'Command not found. Type "help" for a list of commands.';
 
 function getCurrentDir() {
     return currentPath.reduce((dir, part) => dir[part], fileSystem);
@@ -12,11 +13,11 @@ function handleCommand(cmd) {
     if (commands[command]) {
         return commands[command].action(args);
     } else {
-        return 'Command not found. Type "help" for a list of commands.';
+        return error_message;
     }
 }
 
-const commands = {
+let commands = {
     cat: {
         desc: "Print content of given file in the current directory.",
         action: (filename) => {
@@ -24,15 +25,18 @@ const commands = {
                 return "Usage: cat <file>"
             }
 
+            if (filename == "my_suffering.txt") {
+                setTimeout(() => { progressStory(3); }, 5000);
+            }
+
             const dir = getCurrentDir();
             const file = dir[filename];
+            if (file == null) { return 'File not found.'; }
 
             if (file["type"] == "file") {
                 return file["content"];
             } else if (file["type"] == "directory") {
                 return `${filename} is a directory.`;
-            } else {
-                return 'File not found.';
             }
         }
     },
