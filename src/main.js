@@ -12,11 +12,11 @@ let isComputerOn = false;
 var booting = new Audio('assets/audio/booting.mp3');
 var beep = new Audio('assets/audio/beep.mp3');
 
-document.getElementById("power-button").addEventListener("keydown", (e) => {
-    if (e.key == "Spacebar") {
-        e.preventDefault();
+document.getElementById("power-button").addEventListener('keydown', function(event) {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
     }
-})
+  });
 
 function delay(delayInms) {
     return new Promise(resolve => setTimeout(resolve, delayInms));

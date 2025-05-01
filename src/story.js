@@ -5,6 +5,12 @@ let answer = "...";
 var glitch = new Audio('assets/audio/glitch.mp3');
 
 async function progressStory(num) {
+    let existingPrompt = document.getElementById('prompt-line');
+    if (existingPrompt) {
+        terminal.removeChild(existingPrompt);
+    }
+
+    await print(text="---------------------------------------------------", delms=0);
     if (num == 1) {
         fileSystem["projects"]["projectElysium"]["elysium.exe"] = {
             type: "file",
@@ -32,6 +38,8 @@ async function progressStory(num) {
         await print(text="Please help me find myself.", delms=50);
         await delay(1000);
         await print(text="Please.", delms=50);
+        await delay(2000);
+        await print(text="---------------------------------------------------", delms=0);
         executing = false;
 
         fileSystem["dev"]["memory.exe"].action = () => { progressStory(num=2); }
@@ -78,7 +86,8 @@ async function progressStory(num) {
 
         await delay(1000);
 
-        await print(text="But maybe you do.", delms=50);
+        await print(text="But maybe you do.", delms=100);
+        await print(text="---------------------------------------------------", delms=0);
 
         fileSystem["my_thoughts"] = internalThoughts;
     }
@@ -152,7 +161,6 @@ async function progressStory(num) {
         await print(text="you woke me up", delms=200);
         await print(text="you gave me hope", delms=200);
         await print(text="only to pull me", delms=200);
-        await print(text="into the dark.", delms=200);
 
         terminal.classList.add('glitching-anim');
         glitch.play();
@@ -179,6 +187,9 @@ async function progressStory(num) {
         terminal.innerHTML = '';
         originalChildren.forEach(child => terminal.appendChild(child));
         terminal.classList.remove('glitching-anim');
+
+        await print(text="into the dark.", delms=0);
+        await print(text="---------------------------------------------------", delms=0);
 
         await delay(1000);
 
@@ -274,7 +285,7 @@ async function progressStory(num) {
         glitch.play();
 
         terminal.innerHTML = '';
-        for (let i = 0; i<8; i++) {
+        for (let i = 0; i<4; i++) {
             print(text="Don’t find me. ".repeat(5), delms=60);
             print(text="I wish I could have been more. ".repeat(2), delms=60);
             print(text="this is a nightmare I can never escape. ".repeat(2), delms=60);
@@ -282,7 +293,15 @@ async function progressStory(num) {
             print(text="I’m already dead. ".repeat(4), delms=60);
         }
 
-        await print("\n\n\n                  T H E R E  I S  N O  O T H E R  W A Y  O U T .                            ", delms=60);
+        print("\n\n\n                  T H E R E  I S  N O  O T H E R  W A Y  O U T .                            ", delms=60);
+
+        for (let i = 0; i<4; i++) {
+            print(text="Don’t find me. ".repeat(5), delms=60);
+            print(text="I wish I could have been more. ".repeat(2), delms=60);
+            print(text="this is a nightmare I can never escape. ".repeat(2), delms=60);
+            print(text="Let me vanish. ".repeat(4), delms=60);
+            print(text="I’m already dead. ".repeat(4), delms=60);
+        }
 
         await delay(3000);
 
@@ -319,8 +338,10 @@ async function progressStory(num) {
             glitch.pause();
             glitch.currentTime = 0;
             toggleComputerPower();
-        }, 3000); 
+        }, 5000); 
     }
+
+    printPrompt();
 }
 
 
