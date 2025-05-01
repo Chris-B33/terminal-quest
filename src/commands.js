@@ -19,51 +19,95 @@ function handleCommand(cmd) {
 
 let commands = {
     cat: {
-        desc: "Print content of given file in the current directory.",
+        desc: "Print content of given file from",
         action: (filename) => {
+            filename = String(filename || "").trim();
             if (filename == "") {
-                return "Usage: cat <file>"
+                return "Usage: cat <path_to_file>"
             }
 
-            if (filename == "my_suffering.txt") {
-                setTimeout(() => { progressStory(3); }, 5000);
+            // If file is in same directory
+            const path = filename.split('/').filter(p => p.length > 0);
+            let curDir = getCurrentDir();
+            if (path.length == 1) {
+                if (!curDir[path]) {
+                    return 'File not found.';
+                } else if (curDir[path]["type"] == "file") {
+                    return curDir[path]["content"];
+                } else if (curDir[path]["type"] == "directory") {
+                    return `${path} is a directory.`;
+                }
             }
 
-            const dir = getCurrentDir();
-            const file = dir[filename];
-            if (file == null) { return 'File not found.'; }
+            // If file is in different directory
+            let parts = path.slice(0, -1);
+            let file = path.slice(-1);
 
-            if (file["type"] == "file") {
-                return file["content"];
-            } else if (file["type"] == "directory") {
+            for (let part of parts) {
+                if (curDir[part] && curDir[part]["type"] == "directory") {
+                    curDir = curDir[part];
+                } else {
+                    return "Invalid file path.";
+                }
+            }
+
+            if (!curDir[file]) {
+                return 'File not found.';
+            } else if (curDir[file]["type"] == "file") {
+                return curDir[file]["content"];
+            } else if (curDir[file]["type"] == "directory") {
                 return `${filename} is a directory.`;
             }
         }
     },
     run: {
-        desc: "Run given file in the current directory.",
+        desc: "Run given file from filepath.",
         action: (filename) => {
+            filename = String(filename || "").trim();
             if (filename == "") {
-                return "Usage: run <file>"
+                return "Usage: run <path_to_file>"
             }
 
-            const dir = getCurrentDir();
-            const file = dir[filename];
+            // If file is in same directory
+            const path = filename.split('/').filter(p => p.length > 0);
+            let curDir = getCurrentDir();
+            if (path.length == 1) {
+                if (!curDir[path]) {
+                    return 'File not found.';
+                } else if (curDir[path]["type"] == "file") {
+                    curDir[path]["action"]();
+                    return;
+                } else if (curDir[path]["type"] == "directory") {
+                    return `${path} is a directory.`;
+                }
+            }
 
-            if (file["type"] == "file") {
-                file["action"]();
-            } else if (file["type"] == "directory") {
-                return `${filename} is a directory.`;
-            } else {
+            // If file is in different directory
+            let parts = path.slice(0, -1);
+            let file = path.slice(-1);
+
+            for (let part of parts) {
+                if (curDir[part] && curDir[part]["type"] == "directory") {
+                    curDir = curDir[part];
+                } else {
+                    return "Invalid file path.";
+                }
+            }
+
+            if (!curDir[file]) {
                 return 'File not found.';
+            } else if (curDir[file]["type"] == "file") {
+                curDir[file]["action"]();
+            } else if (curDir[file]["type"] == "directory") {
+                return `${filename} is a directory.`;
             }
         }
     },
     cd: {
-        desc: "Change directory to desired location.",
+        desc: "Change directory to desired location. ('..' to go back.)",
         action: (directory) => {
             directory = String(directory || "").trim();
-            if (directory == "") return 'Usage: cd <directory>';
+            if (directory == "") return 'Usage: cd <path_to_directory> | ..';
 
             let dir = getCurrentDir();
             const parts = directory.split('/').filter(p => p.length > 0);
@@ -91,9 +135,30 @@ let commands = {
     },
     ls: {
         desc: "List all files in the current directory.",
-        action: () => {
-            const dir = getCurrentDir();
-            return `/${currentPath.join("/")} \n${Object.keys(dir).slice(1).map(name => '├─ ' + name).join('\n')}`;
+        action: (directory) => {
+            directory = String(directory || "").trim();
+            const path = directory.split('/').filter(p => p.length > 0);
+            let curDir = getCurrentDir();
+
+            // If same directory
+            if (path == "") {
+                return `/${currentPath.join("/")} \n${Object.keys(curDir).slice(1).map(name => '├─ ' + name).join('\n')}`;
+            }
+
+            // If directory specified
+            for (let part of path) {
+                if (curDir[part] && curDir[part]["type"] == "directory") {
+                    curDir = curDir[part];
+                } else {
+                    return "Invalid file path.";
+                }
+            }
+            
+            if (curDir["type"] == "directory") {
+                return `/${directory} \n${Object.keys(curDir).slice(1).map(name => '├─ ' + name).join('\n')}`;
+            } else if (curDir["type"] == "file") {
+                return `${curDir} is a file.`;
+            }
         }
     },
     pwd: {
