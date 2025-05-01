@@ -12,6 +12,12 @@ let isComputerOn = false;
 var booting = new Audio('assets/audio/booting.mp3');
 var beep = new Audio('assets/audio/beep.mp3');
 
+document.getElementById("power-button").addEventListener("keydown", (e) => {
+    if (e.key == "Spacebar") {
+        e.preventDefault();
+    }
+})
+
 function delay(delayInms) {
     return new Promise(resolve => setTimeout(resolve, delayInms));
 }
@@ -73,6 +79,7 @@ async function toggleComputerPower() {
             terminal.classList.remove('turn-on-anim');
             model.src = "assets/models/old_pc_on.glb"
             executing = false;
+            currentPath = [];
         });
     }
 
